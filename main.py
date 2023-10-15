@@ -192,49 +192,49 @@ from pathlib import Path
 from random import randint
 
 # ects_table = [
-    {
-        "Оцінка": 1,
-        "Бали": (0, 34),
-        "Оцінка ECTS": "F",
-        "Пояснення": "Unsatisfactorily",
-    },
-    {
-        "Оцінка": 2,
-        "Бали": (35, 59),
-        "Оцінка ECTS": "FX",
-        "Пояснення": "Unsatisfactorily",
-    },
-    {
-        "Оцінка": 3,
-        "Бали": (60, 66),
-        "Оцінка ECTS": "E",
-        "Пояснення": "Enough",
-    },
-    {
-        "Оцінка": 3,
-        "Бали": (67, 74),
-        "Оцінка ECTS": "D",
-        "Пояснення": "Satisfactorily",
-    },
-    {
-        "Оцінка": 4,
-        "Бали": (75, 89),
-        "Оцінка ECTS": "C",
-        "Пояснення": "Good",
-    },
-    {
-        "Оцінка": 5,
-        "Бали": (90, 95),
-        "Оцінка ECTS": "B",
-        "Пояснення": "Very good",
-    },
-    {
-        "Оцінка": 5,
-        "Бали": (96, 100),
-        "Оцінка ECTS": "A",
-        "Пояснення": "Perfectly",
-    },
-]
+#     {
+#         "Оцінка": 1,
+#         "Бали": (0, 34),
+#         "Оцінка ECTS": "F",
+#         "Пояснення": "Unsatisfactorily",
+#     },
+#     {
+#         "Оцінка": 2,
+#         "Бали": (35, 59),
+#         "Оцінка ECTS": "FX",
+#         "Пояснення": "Unsatisfactorily",
+#     },
+#     {
+#         "Оцінка": 3,
+#         "Бали": (60, 66),
+#         "Оцінка ECTS": "E",
+#         "Пояснення": "Enough",
+#     },
+#     {
+#         "Оцінка": 3,
+#         "Бали": (67, 74),
+#         "Оцінка ECTS": "D",
+#         "Пояснення": "Satisfactorily",
+#     },
+#     {
+#         "Оцінка": 4,
+#         "Бали": (75, 89),
+#         "Оцінка ECTS": "C",
+#         "Пояснення": "Good",
+#     },
+#     {
+#         "Оцінка": 5,
+#         "Бали": (90, 95),
+#         "Оцінка ECTS": "B",
+#         "Пояснення": "Very good",
+#     },
+#     {
+#         "Оцінка": 5,
+#         "Бали": (96, 100),
+#         "Оцінка ECTS": "A",
+#         "Пояснення": "Perfectly",
+#     },
+# ]
 # data = ects_table[:]
 # for key in data:
 #     # for k, value in key.items():
@@ -1078,71 +1078,6 @@ from random import randint
 # for sentence in sentences:
 #     print(sentence)
 
-
-def get_birthdays_per_week(users):
-    # Створюємо словник для зберігання імен на днях тижня
-    birthday_dict = defaultdict(list)
-
-    # Отримуємо поточну дату
-    today = datetime.today().date()
-
-    # Визначаємо початок і кінець наступного тижня
-    next_week_start = today + timedelta(days=(7 - today.weekday()))
-    next_week_end = next_week_start + timedelta(days=7)
-
-    # Перебираємо користувачів
-    for user in users:
-        name = user["name"]
-        birthday = user["birthday"].date()
-
-        # Визначаємо дату народження на цей рік
-        birthday_this_year = birthday.replace(year=today.year)
-
-        # Перевіряємо, чи вже минув день народження цього року
-        if birthday_this_year < today:
-            # Якщо так, розглядаємо дату на наступний рік
-            birthday_this_year = birthday_this_year.replace(
-                year=today.year + 1)
-
-        # Визначаємо різницю між днем народження і поточним днем
-        delta_days = (birthday_this_year - today).days
-
-        # Визначаємо день тижня дня народження
-        # 0 - понеділок, 6 - неділя
-        birthday_weekday = (today.weekday() + delta_days) % 7
-
-        # Перевіряємо, чи день народження потрапляє в наступний тиждень
-        if next_week_start <= birthday_this_year < next_week_end:
-            # Додаємо ім'я до відповідного дня народження
-            if birthday_weekday == 5 or birthday_weekday == 6:
-                # Якщо це вихідний, привітаємо в понеділок
-                birthday_weekday = 0
-            day_of_week = get_day_of_week(birthday_weekday)
-            birthday_dict[day_of_week].append(name)
-
-    # Виводимо результат
-    for day, names in birthday_dict.items():
-        if names:
-            print(f"{day}: {', '.join(names)}")
-
-
-def get_day_of_week(weekday):
-    days = ["Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"]
-    return days[weekday]
-
-
-# Приклад використання:
-users = [
-    {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
-    {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
-    {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
-    {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 23)},
-    {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
-]
-get_birthdays_per_week(users)
-
-
 # def solve_riddle(riddle, word_length, start_letter, reverse=False):
 #      # Якщо reverse=False, шукаємо слово в прямому порядку
 #     if reverse:
@@ -1392,8 +1327,6 @@ get_birthdays_per_week(users)
 #         return True
 #     else:
 #         return False
-
-
 # pin_codes = ['1101', '9034', '0011']
 # is_valid_pin_codes(pin_codes)
 
@@ -1401,14 +1334,10 @@ get_birthdays_per_week(users)
 #     cmd, *args = user_input.split()
 #     cmd = cmd.strip().lower()
 #     return cmd, *args
-
-
 # def add_contact(args, contacts):
 #     name, phone = args
 #     contacts[name] = phone
 #     return "Contact added."
-
-
 # def main():
 #     contacts = {}
 #     print("Welcome to the assistant bot!")
@@ -1431,7 +1360,139 @@ get_birthdays_per_week(users)
 #             print("Contacts:", contacts)
 #         else:
 #             print("Invalid command.")
-
-
 # if __name__ == "__main__":
 #     main()
+
+from datetime import datetime, timedelta
+from collections import defaultdict
+
+
+def get_birthdays_per_week(users):
+    birthday_dict = defaultdict(list)
+    today = datetime.today().date()
+    print("today:", today)
+    next_week_start = today + timedelta(days=(7 - today.weekday()))
+    print(
+        f"next_week_start {next_week_start} days=(7 - today.weekday()={today.weekday()}")
+    next_week_end = next_week_start + timedelta(days=7)
+
+    # Перебираємо користувачів
+    for user in users:
+        name = user["name"]
+        birthday = user["birthday"].date()
+
+        # Визначаємо дату народження на цей рік
+        birthday_this_year = birthday.replace(year=today.year)
+
+        # Перевіряємо, чи вже минув день народження цього року
+        if birthday_this_year < today:
+            # Якщо так, розглядаємо дату на наступний рік
+            birthday_this_year = birthday_this_year.replace(
+                year=today.year + 1)
+
+        # Визначаємо різницю між днем народження і поточним днем
+        delta_days = (birthday_this_year - today).days
+
+        # Визначаємо день тижня дня народження
+        # 0 - понеділок, 6 - неділя
+        birthday_weekday = (today.weekday() + delta_days) % 7
+
+        # Перевіряємо, чи день народження потрапляє в наступний тиждень
+        if next_week_start <= birthday_this_year < next_week_end:
+            # Додаємо ім'я до відповідного дня народження
+            if birthday_weekday == 5 or birthday_weekday == 6:
+                # Якщо це вихідний, привітаємо в понеділок
+                birthday_weekday = 0
+            day_of_week = get_day_of_week(birthday_weekday)
+            birthday_dict[day_of_week].append(name)
+
+    # Визначаємо порядок днів тижня від понеділка до п'ятниці
+    sorted_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+
+    # Виводимо результат в порядку
+    for day in sorted_days:
+        names = birthday_dict[day]
+        if names:
+            print(f"{day}: {', '.join(names)}")
+
+
+def get_day_of_week(weekday):
+    days = ["Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"]
+    return days[weekday]
+
+
+# Приклад використання:
+users = [
+    {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
+    {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
+    {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
+    {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 20)},
+    {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
+]
+get_birthdays_per_week(users)
+
+
+def get_birthdays_per_week1(users):
+    # Створюємо словник для зберігання імен на днях тижня
+    birthday_dict = defaultdict(list)
+
+    # Отримуємо поточну дату
+    today = datetime.today().date()
+
+    # Визначаємо початок і кінець наступного тижня
+    next_week_start = today + timedelta(days=(7 - today.weekday()))
+    next_week_end = next_week_start + timedelta(days=7)
+
+    # Перебираємо користувачів
+    for user in users:
+        name = user["name"]
+        birthday = user["birthday"].date()
+
+        # Визначаємо дату народження на цей рік
+        birthday_this_year = birthday.replace(year=today.year)
+        print("birthday_this_year=", birthday_this_year)
+
+        # Перевіряємо, чи вже минув день народження цього року
+        if birthday_this_year < today:
+            # Якщо так, розглядаємо дату на наступний рік
+            birthday_this_year = birthday_this_year.replace(
+                year=today.year + 1)
+
+        # Визначаємо різницю між днем народження і поточним днем
+        delta_days = (birthday_this_year - today).days
+        print("delta_days = ", delta_days)
+
+        # Визначаємо день тижня дня народження
+        # 0 - понеділок, 6 - неділя
+        birthday_weekday = (today.weekday() + delta_days) % 7
+
+        # Перевіряємо, чи день народження потрапляє в наступний тиждень
+        if next_week_start <= birthday_this_year < next_week_end:
+            # Додаємо ім'я до відповідного дня народження
+            if birthday_weekday == 5 or birthday_weekday == 6:
+                # Якщо це вихідний, привітаємо в понеділок
+                birthday_weekday = 0
+            day_of_week = get_day_of_week(birthday_weekday)
+            birthday_dict[day_of_week].append(name)
+
+    # Виводимо результат
+    for day, names in birthday_dict.items():
+        if names:
+            print(f"{day}: {', '.join(names)}")
+
+
+def get_day_of_week(weekday):
+    days = ["Monday", "Tuesday", "Wednesday",
+            "Thursday", "Friday", "Saturday", "Sunday"]
+    return days[weekday]
+
+
+users = [
+    {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
+    {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
+    {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
+    {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 20)},
+    {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
+]
+get_birthdays_per_week1(users)
