@@ -1290,10 +1290,13 @@ from random import randint
 #         # Проходимося по кожному рядку та перевіряємо, чи містить професію
 #         for line in lines:
 #             if profession in line:
-#                 parts = line.split()  # Розділяємо рядок на слова
-#                 if len(parts) > 1:
+#                 # parts = line.split()  # Розділяємо рядок на слова
+#                 if len(line) > 1:
 #                     # Додаємо ім'я співробітника до списку
-#                     found_employees.append(parts[0])
+#                     print(
+#                         f'line.replace(profession, ""):{line.replace(profession, "").strip()}:')
+#                     found_employees.append(
+#                         line.replace(profession, "").strip())
 
 #         # Об'єднуємо імена знайдених співробітників в один рядок з пробілами
 #         result = ' '.join(found_employees)
@@ -1304,6 +1307,8 @@ from random import randint
 #     except Exception as e:
 #         return str(e)
 
+
+# print(get_employees_by_profession("./users.txt", "cook"))
 
 # Приклад використання функції
 # path = "employees.txt"
@@ -1363,136 +1368,594 @@ from random import randint
 # if __name__ == "__main__":
 #     main()
 
-from datetime import datetime, timedelta
-from collections import defaultdict
+# from datetime import datetime, timedelta
+# from collections import defaultdict
+# def get_birthdays_per_week(users):
+#     birthday_dict = defaultdict(list)
+#     today = datetime.today().date()
+#     print("today:", today)
+#     next_week_start = today + timedelta(days=(7 - today.weekday()))
+#     print(
+#         f"next_week_start {next_week_start} days=(7 - today.weekday()={today.weekday()}")
+#     next_week_end = next_week_start + timedelta(days=7)
+#     for user in users:
+#         name = user["name"]
+#         birthday = user["birthday"].date()
+#         birthday_this_year = birthday.replace(year=today.year)
+#         if birthday_this_year < today:
+#             # Якщо так, розглядаємо дату на наступний рік
+#             birthday_this_year = birthday_this_year.replace(
+#                 year=today.year + 1)
+#         # Визначаємо різницю між днем народження і поточним днем
+#         delta_days = (birthday_this_year - today).days
+#         birthday_weekday = (today.weekday() + delta_days) % 7 # 0 - понеділок, 6 - неділя
+#         if next_week_start <= birthday_this_year < next_week_end:
+#             if birthday_weekday == 5 or birthday_weekday == 6:
+#                 birthday_weekday = 0
+#             day_of_week = get_day_of_week(birthday_weekday)
+#             birthday_dict[day_of_week].append(name)
+#     # Визначаємо порядок днів тижня від понеділка до п'ятниці
+#     sorted_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+#     for day in sorted_days:
+#         names = birthday_dict[day]
+#         if names:
+#             print(f"{day}: {', '.join(names)}")
+# def get_day_of_week(weekday):
+#     days = ["Monday", "Tuesday", "Wednesday",
+#             "Thursday", "Friday", "Saturday", "Sunday"]
+#     return days[weekday]
+# # Приклад використання:
+# users = [
+#     {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
+#     {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
+#     {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
+#     {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 20)},
+#     {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
+# ]
+# get_birthdays_per_week(users)
+
+# from datetime import datetime, timedelta
+# from collections import defaultdict
+# def get_birthdays_per_week1(users):
+#     birthday_dict = defaultdict(list)
+#     today = datetime.today().date()  # без часу тільки дата
+#     next_week_start = today + timedelta(days=(7 - today.weekday()))
+#     print("next_week_start", next_week_start)
+#     next_week_end = next_week_start + timedelta(days=7)
+#     print("next_week_end", next_week_end)
+#     for user in users:
+#         name = user["name"]
+#         birthday = user["birthday"].date()
+#         birthday_this_year = birthday.replace(year=today.year)
+#         print("birthday_this_year=", birthday_this_year)
+#         if birthday_this_year < today:
+#             # Якщо так, розглядаємо дату на наступний рік
+#             birthday_this_year = birthday_this_year.replace(
+#                 year=today.year + 1)
+#         delta_days = (birthday_this_year - today).days
+#         print("delta_days = ", delta_days)
+#         birthday_weekday = (today.weekday() + delta_days) % 7 # 0 - понеділок, 6 - неділя
+#         if next_week_start <= birthday_this_year < next_week_end:
+#             if birthday_weekday == 5 or birthday_weekday == 6:
+#                 birthday_weekday = 0 # Якщо це вихідний, привітаємо в понеділок
+#             day_of_week = get_day_of_week(birthday_weekday)
+#             birthday_dict[day_of_week].append(name)
+#     print("birthday_dict", birthday_dict)
+#     for day, names in birthday_dict.items():
+#         if names:
+#             print(f"{day}: {', '.join(names)}")  # Виводимо результат
+# def get_day_of_week(weekday):
+#     days = ["Monday", "Tuesday", "Wednesday",
+#             "Thursday", "Friday", "Saturday", "Sunday"]
+#     return days[weekday]
+# users = [
+#     {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
+#     {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
+#     {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 29)},
+#     {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 23)},
+#     {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
+# ]
+# get_birthdays_per_week1(users)
+
+# def to_indexed(source_file, output_file):
+#     try:
+#         with open(source_file, 'r') as source:
+#             lines = source.readlines()
+#     except FileNotFoundError:
+#         print(f"File '{source_file}' not found.")
+#         return
+#     with open(output_file, 'w') as output:
+#         for i, line in enumerate(lines):
+#             indexed_line = f"{i}: {line}"
+#             output.write(indexed_line)
+#     print(
+#         f"Файл '{output_file}' успішно створено і заповнено з номерами рядків.")
+
+# def flatten(data):
+#     if not data:
+#         return []
+#     # Якщо перший елемент списку є списком
+#     if isinstance(data[0], list):
+#         first = flatten(data[0])
+#         rest = flatten(data[1:])
+#         return first + rest
+#     else:
+#         # Якщо перший елемент списку не є списком
+#         # Отримуємо перший список із першого елемента списку
+#         first = [data[0]]
+#         # Рекурсивно викликаємо функцію з рештою списку без першого елемента
+#         rest = flatten(data[1:])
+#         # Повертаємо конкатенацію двох списків
+#         return first + rest
+# # Приклад використання:
+# data = [1, [2], [3, 4, [5, 6]], 7]
+# result = flatten(data)
+# print(result)  # Виведе [1, 2, 3, 4, 5, 6, 7]
+
+# def decode(data):
+#     decoded_list = []  # Починаємо з порожнього списку для розшифрованих значень
+#     i = 0  # Індекс, що вказує на поточний елемент у закодованому списку
+#     while i < len(data):
+#         if i + 1 < len(data) and isinstance(data[i + 1], int):
+#             # Якщо наступний елемент є цілим числом (лічильником)
+#             # Додаємо поточне значення до розшифрованого списку у кількість разів, яку вказує лічильник
+#             decoded_list.extend([data[i]] * data[i + 1])
+#             i += 2  # Переходимо до наступного незакодованого значення
+#         else:
+#             # Якщо наступний елемент не є цілим числом (лічильником)
+#             # Додаємо поточне значення до розшифрованого списку один раз
+#             decoded_list.append(data[i])
+#             i += 1  # Переходимо до наступного незакодованого значення
+#     return decoded_list
+# # Приклад використання:
+# data = ["X", 3, "Z", 2, "X", 2, "Y", 3, "Z", 2]
+# decoded_list = decode(data)
+# # Виведе ['X', 'X', 'X', 'Z', 'Z', 'X', 'X', 'Y', 'Y', 'Y', 'Z', 'Z']
+# print(decoded_list)
 
 
-def get_birthdays_per_week(users):
-    birthday_dict = defaultdict(list)
-    today = datetime.today().date()
-    print("today:", today)
-    next_week_start = today + timedelta(days=(7 - today.weekday()))
-    print(
-        f"next_week_start {next_week_start} days=(7 - today.weekday()={today.weekday()}")
-    next_week_end = next_week_start + timedelta(days=7)
+# def decode(data):
+#     def decode_recursive(data, index):
+#         if index >= len(data):
+#             return []
 
-    # Перебираємо користувачів
-    for user in users:
-        name = user["name"]
-        birthday = user["birthday"].date()
+#         current_element = data[index]
+#         if isinstance(current_element, int):
+#             return [data[index - 1]] * current_element + decode_recursive(data, index + 1)
+#         else:
+#             return [current_element] + decode_recursive(data, index + 1)
 
-        # Визначаємо дату народження на цей рік
-        birthday_this_year = birthday.replace(year=today.year)
-
-        # Перевіряємо, чи вже минув день народження цього року
-        if birthday_this_year < today:
-            # Якщо так, розглядаємо дату на наступний рік
-            birthday_this_year = birthday_this_year.replace(
-                year=today.year + 1)
-
-        # Визначаємо різницю між днем народження і поточним днем
-        delta_days = (birthday_this_year - today).days
-
-        # Визначаємо день тижня дня народження
-        # 0 - понеділок, 6 - неділя
-        birthday_weekday = (today.weekday() + delta_days) % 7
-
-        # Перевіряємо, чи день народження потрапляє в наступний тиждень
-        if next_week_start <= birthday_this_year < next_week_end:
-            # Додаємо ім'я до відповідного дня народження
-            if birthday_weekday == 5 or birthday_weekday == 6:
-                # Якщо це вихідний, привітаємо в понеділок
-                birthday_weekday = 0
-            day_of_week = get_day_of_week(birthday_weekday)
-            birthday_dict[day_of_week].append(name)
-
-    # Визначаємо порядок днів тижня від понеділка до п'ятниці
-    sorted_days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-
-    # Виводимо результат в порядку
-    for day in sorted_days:
-        names = birthday_dict[day]
-        if names:
-            print(f"{day}: {', '.join(names)}")
+#     return decode_recursive(data, 0)
 
 
-def get_day_of_week(weekday):
-    days = ["Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"]
-    return days[weekday]
+# # Приклад використання:
+# data = ["X", 3, "Z", 2, "X", 2, "Y", 3, "Z", 2]
+# decoded_list = decode(data)
+# # Виведе ['X', 'X', 'X', 'Z', 'Z', 'X', 'X', 'Y', 'Y', 'Y', 'Z', 'Z']
+# print(decoded_list)
+
+# def decode(data):
+#     def decode_recursive(data, index):
+#         # Базовий випадок: якщо індекс перевищує довжину закодованого списку,
+#         #  завершуємо рекурсію
+#         if index >= len(data):
+#             return []
+#         current_element = data[index]
+#         if isinstance(current_element, int):
+#             # Якщо поточний елемент є цілим числом (лічильником)
+#             # Додаємо поточне значення до розшифрованого списку у кількість разів,
+#             #  яку вказує лічильник
+#             return [data[index - 1]] * (current_element - 1) + decode_recursive(data, index + 1)
+#         else:
+#             # Якщо поточний елемент не є цілим числом (лічильником)
+#             # Додаємо поточне значення до розшифрованого списку один раз
+#             return [current_element] + decode_recursive(data, index + 1)
+#     return decode_recursive(data, 0)
 
 
-# Приклад використання:
-users = [
-    {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
-    {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
-    {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
-    {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 20)},
-    {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
-]
-get_birthdays_per_week(users)
+# # Приклад використання:
+# data1 = ["X", 3, "Z", 2, "X", 2, "Y", 3, "Z", 2]
+# data = ['X', 3, 'Z', 2, 'X', 2, 'Y', 3, 'Z', 2]
+# decoded_list = decode(data)
+# # Виведе ['X', 'X', 'X', 'Z', 'Z', 'X', 'X', 'Y', 'Y', 'Y', 'Z', 'Z']
+# # Виведе ['X', 'X', 'X', 'Z', 'Z', 'X', 'X', 'Y', 'Y', 'Y', 'Z', 'Z']
+# print(decoded_list)
+
+# def encode(input_list):
+#     def encode_recursive(input_list, current_value, count):
+#         if not input_list:
+#             # Базовий випадок: якщо вхідний список порожній, завершуємо рекурсію
+#             return []
+
+#         current_element = input_list[0]
+
+#         if current_element == current_value:
+#             # Якщо поточний елемент дорівнює поточному значенню
+#             # Збільшуємо лічильник повторів
+#             count += 1
+#         else:
+#             # Якщо поточний елемент відрізняється від поточного значення
+#             # Додаємо поточне значення та лічильник повторів до закодованого списку
+#             result = [current_value, count]
+#             # Рекурсивно викликаємо функцію з рештою списку та новим поточним значенням та лічильником
+#             result.extend(encode_recursive(input_list[1:], current_element, 1))
+#             return result
+
+#         # Рекурсивно викликаємо функцію з рештою списку та поточним значенням та лічильником
+#         return encode_recursive(input_list[1:], current_value, count)
+
+#     if not input_list:
+#         return []
+
+#     # Початкове значення та лічильник для першого елемента
+#     current_value = input_list[0]
+#     count = 1
+
+#     return encode_recursive(input_list[1:], current_value, count)
 
 
-def get_birthdays_per_week1(users):
-    # Створюємо словник для зберігання імен на днях тижня
-    birthday_dict = defaultdict(list)
+# # Приклад використання:
+# input_list = ["X", "X", "X", "Z", "Z", "X", "X", "Y", "Y", "Y", "Z", "Z"]
+# encoded_list = encode(input_list)
+# print(encoded_list)  # Виведе ["X", 3, "Z", 2, "X", 2, "Y", 3, "Z", 2]
 
-    # Отримуємо поточну дату
-    today = datetime.today().date()
+# def encode(data):
+#     if not data:
+#         return []
 
-    # Визначаємо початок і кінець наступного тижня
-    next_week_start = today + timedelta(days=(7 - today.weekday()))
-    next_week_end = next_week_start + timedelta(days=7)
+#     def encode_recursive(data, current_value, count):
+#         if not data:
+#             # print("No data to encode", current_value, count)
+#             return [current_value, count]
+#         current_element = data[0]
+#         # print(f"current_element = {data[0]}")
+#         if current_element == current_value:
+#             # Якщо поточний елемент дорівнює поточному значенню
+#             # Збільшуємо лічильник повторів
+#             count += 1
+#             # print(f"current_element {current_value} == current_value",
+#             #       "count =", count)
+#         else:
+#             # Якщо поточний елемент відрізняється від поточного значення
+#             # Додаємо поточне значення та лічильник повторів до закодованого списку
+#             result = [current_value, count]
+#             # Рекурсивно викликаємо функцію з рештою списку та новим поточним значенням та лічильником
+#             print("result1:", result)
+#             # print(
+#             #     f"encode_(data[1:]={data[1:]}, {current_element}, 1)")
+#             result.extend(encode_recursive(data[1:], current_element, 1))
+#             print("extend:", encode_recursive(
+#                 data[1:], current_element, 1))
+#             print("result.extended:", result)
+#             return result
 
-    # Перебираємо користувачів
-    for user in users:
-        name = user["name"]
-        birthday = user["birthday"].date()
+#         # print("encode_data3[1:]:", data[1:], current_value, count)
+#         # Рекурсивно викликаємо функцію з рештою списку та поточним значенням та лічильником
+#         return encode_recursive(data[1:], current_value, count)
 
-        # Визначаємо дату народження на цей рік
-        birthday_this_year = birthday.replace(year=today.year)
-        print("birthday_this_year=", birthday_this_year)
+#     # Початкове значення та лічильник для першого елемента
+#     current_value = data[0]
+#     count = 1
+#     # print("data0[1:]", data[1:], "Current0=", current_value, "count0=", count)
+#     return encode_recursive(data[1:], current_value, count)
+# # Приклад використання:
+# data = ["X", "X", "X", "Z", "Z", "X", "X", "Y", "Y", "Y", "Z", "Z"]
+# # data = []
+# encoded_list = encode(data)
+# print(encoded_list)  # Виведе ["X", 3, "Z", 2, "X", 2, "Y", 3, "Z", 2]
 
-        # Перевіряємо, чи вже минув день народження цього року
-        if birthday_this_year < today:
-            # Якщо так, розглядаємо дату на наступний рік
-            birthday_this_year = birthday_this_year.replace(
-                year=today.year + 1)
+# from datetime import datetime
+# def get_days_from_today(date):
+#     # Перетворюємо вхідну рядок у об'єкт datetime, без часу тільки дата
+#     input_date = datetime.strptime(date, "%Y-%m-%d").date()
+#     print("input date=", input_date)
+#     today = datetime.today().date()  # без часу тільки дата
+#     print("today=", today)
+#     delta_days = (today - input_date).days  # Обчислюємо різницю в днях
+#     print("delta days=", delta_days)
+#     return delta_days
 
-        # Визначаємо різницю між днем народження і поточним днем
-        delta_days = (birthday_this_year - today).days
-        print("delta_days = ", delta_days)
+# # Приклад використання:
+# # current_date = datetime.now().strftime("%Y-%m-%d")
+# current_date = datetime.now().date()  # без часу тільки дата
+# date_to_compare = "2021-10-09"
+# days_difference = get_days_from_today(date_to_compare)
+# print(f"Поточна дата: {current_date}")
+# print(
+#     f"Різниця в днях між поточною датою і {date_to_compare}: {days_difference}")
+# def get_days_in_month(month, year):
+#     # Перевірка на коректність вхідних даних
+#     if month < 1 or month > 12:
+#         return "Номер місяця має бути у діапазоні від 1 до 12."
+#     if year < 0 or len(str(year)) != 4:
+#         return "Рік має складатися із чотирьох цифр."
+#     # Список місяців, який враховує кількість днів у кожному місяці
+#     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+#     # Перевірка, чи рік є високосним
+#     if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+#         # Якщо рік високосний, то лютого 29 днів
+#         days_in_month[1] = 29
+#     # Повертаємо кількість днів для заданого місяця
+#     return days_in_month[month - 1]
+# # Приклад використання функції
+# month = 2
+# year = 2024  # Приклад високосного року
+# days = get_days_in_month(month, year)
+# print(f"У місяці {month} року {year} {days} днів.")
 
-        # Визначаємо день тижня дня народження
-        # 0 - понеділок, 6 - неділя
-        birthday_weekday = (today.weekday() + delta_days) % 7
-
-        # Перевіряємо, чи день народження потрапляє в наступний тиждень
-        if next_week_start <= birthday_this_year < next_week_end:
-            # Додаємо ім'я до відповідного дня народження
-            if birthday_weekday == 5 or birthday_weekday == 6:
-                # Якщо це вихідний, привітаємо в понеділок
-                birthday_weekday = 0
-            day_of_week = get_day_of_week(birthday_weekday)
-            birthday_dict[day_of_week].append(name)
-
-    # Виводимо результат
-    for day, names in birthday_dict.items():
-        if names:
-            print(f"{day}: {', '.join(names)}")
+# from datetime import datetime
 
 
-def get_day_of_week(weekday):
-    days = ["Monday", "Tuesday", "Wednesday",
-            "Thursday", "Friday", "Saturday", "Sunday"]
-    return days[weekday]
+# def get_str_date(date):
+#     # Перетворюємо вхідний рядок у об'єкт datetime
+#     date_format = '%Y-%m-%d %H:%M:%S.%fZ'
+#     date_obj = datetime.strptime(date, date_format)
+
+#     # Форматуємо об'єкт datetime у рядок бажаного формату
+#     formatted_date = date_obj.strftime('%A %d %B %Y')
+
+#     return formatted_date
 
 
-users = [
-    {"name": "Bill Gates", "birthday": datetime(1955, 10, 28)},
-    {"name": "Jan Koum", "birthday": datetime(1976, 2, 24)},
-    {"name": "Kim Kardashian", "birthday": datetime(1980, 10, 21)},
-    {"name": "Dmitry Lupherov", "birthday": datetime(1980, 10, 20)},
-    {"name": "Jill Valentine", "birthday": datetime(1974, 11, 30)},
-]
-get_birthdays_per_week1(users)
+# # Приклад використання
+# date = '2021-05-27 17:08:34.149Z'
+# formatted_date = get_str_date(date)
+# print(formatted_date)  # Виведе 'Thursday 27 May 2021'
+
+# import random
+# def get_numbers_ticket(min, max, quantity):
+#     # Перевірка на допустимість вхідних параметрів
+#     if min < 1 or max > 1000 or min >= max or quantity <= min or quantity >= max:
+#         return []
+#     # Створення списку усіх можливих чисел у діапазоні
+#     possible_numbers = list(range(min, max + 1))
+#     # Вибір випадкових чисел без дублікатів
+#     selected_numbers = random.sample(possible_numbers, quantity)
+#     # Сортування вибраних чисел та повернення результату
+#     selected_numbers.sort()
+#     return selected_numbers
+# # Приклад виклику функції з діапазоном від 1 до 49 і кількістю чисел 6
+# numbers = get_numbers_ticket(1, 49, 6)
+# print(numbers)
+
+# from random import randrange
+# def get_numbers_ticket(min, max, quantity):
+#     # Перевірка на допустимість вхідних параметрів
+#     if min < 1 or max > 1000 or min >= max or quantity <= min or quantity >= max:
+#         return []
+#     selected_numbers = set()  # Використовуємо множину для унікальних чисел
+#     while len(selected_numbers) < quantity:
+#         # Генеруємо випадкове число в діапазоні
+#         random_number = random.randrange(min, max + 1)
+#         selected_numbers.add(random_number)  # Додаємо у множину
+#     # Повертаємо список відсортованих унікальних чисел
+#     return sorted(list(selected_numbers))
+# # Приклад виклику функції з діапазоном від 1 до 49 і кількістю чисел 6
+# numbers = get_numbers_ticket(1, 49, 6)
+# print(numbers)
+
+# import random
+
+
+# def get_random_winners(quantity, participants):
+#     # Отримайте список ключів і перетворіть його в список
+#     participant_keys = list(participants.keys())
+
+#     # Перемішайте список ключів
+#     random.shuffle(participant_keys)
+
+#     # Перевірте, чи передана кількість переможців більша за загальну кількість користувачів
+#     if quantity > len(participant_keys):
+#         return []
+
+#     # Виберіть випадкових переможців
+#     winners = random.sample(participant_keys, k = quantity)
+
+#     return winners
+# # Приклад виклику функції
+# participants = {
+#     "603d2cec9993c627f0982404": "test@test.com",
+#     "603f79022922882d30dd7bb6": "test11@test.com",
+#     "60577ce4b536f8259cc225d2": "test2@test.com",
+#     "605884760742316c07eae603": "vitanlhouse@gmail.com",
+#     "605b89080c318d66862db390": "elhe2013@gmail.com",
+# }
+# winners = get_random_winners(2, participants)
+# print(winners)
+
+# from decimal import Decimal, getcontext
+# def decimal_average(number_list, signs_count):
+#     # Встановлюємо контекст для чисел типу Decimal
+#     # +1 для збереження точності при обчисленні середнього
+#     getcontext().prec = signs_count
+#     # Перетворюємо всі числа у списку на Decimal
+#     decimal_numbers = [Decimal(str(num)) for num in number_list]
+#     # Обчислюємо середнє арифметичне
+#     total = sum(decimal_numbers)
+#     average = total / len(decimal_numbers)
+#     return average
+# print(decimal_average([3, 5, 77, 23, 0.57], 6))
+# print(decimal_average([31, 55, 177, 2300, 1.57], 9))
+# print(decimal_average(
+#     [4.5788689699797, 34.7576578697964, 86.8877666656633, 12], 6))
+
+# from collections import namedtuple
+
+# # Оголошення іменованого кортежу Cat
+# Cat = namedtuple('Cat', ['nickname', 'age', 'owner'])
+
+
+# def convert_list(cats):
+#     # Перевіряємо, чи вхідний параметр є списком іменованих кортежів (Cat)
+#     if isinstance(cats, list) and all(isinstance(cat, Cat) for cat in cats):
+#         # Якщо це список іменованих кортежів, конвертуємо його в список словників
+#         return [{'nickname': cat.nickname, 'age': cat.age, 'owner': cat.owner} for cat in cats]
+#     # Перевіряємо, чи вхідний параметр є списком словників
+#     elif isinstance(cats, list) and all(isinstance(cat, dict) for cat in cats):
+#         # Якщо це список словників, конвертуємо його в список іменованих кортежів
+#         return [Cat(cat['nickname'], cat['age'], cat['owner']) for cat in cats]
+#     else:
+#         # Якщо тип не відповідає ні списку іменованих кортежів, ні списку словників, повертаємо порожній список
+#         return []
+
+
+# # Приклад використання
+# cats_namedtuple = [Cat("Mick", 5, "Sara"), Cat(
+#     "Barsik", 7, "Olga"), Cat("Simon", 3, "Yura")]
+# cats_dict = [
+#     {"nickname": "Mick", "age": 5, "owner": "Sara"},
+#     {"nickname": "Barsik", "age": 7, "owner": "Olga"},
+#     {"nickname": "Simon", "age": 3, "owner": "Yura"}
+# ]
+
+# result_dict = convert_list(cats_namedtuple)
+# print(result_dict)
+
+# result_namedtuple = convert_list(cats_dict)
+# print(result_namedtuple)
+
+# from collections import Counter
+
+# # Список IP адрес
+# IP = [
+#     "85.157.172.253",
+#     "85.157.172.253",
+#     "66.50.38.43",
+#     "66.50.38.43",
+#     "66.50.38.43",
+#     "66.50.38.43",
+#     "123.45.67.89",
+#     "123.45.67.89",
+#     "55.66.77.88",
+# ]
+
+# # Функція для підрахунку кількості входжень кожного IP-адреси
+
+
+# def get_count_visits_from_ip(ips):
+#     ip_counts = Counter(ips)
+#     return dict(ip_counts)
+
+# # Функція для знаходження найбільш часто вживаного IP-адреси та кількості його появ в списку
+
+
+# def get_frequent_visit_from_ip(ips):
+#     ip_counts = Counter(ips)
+#     most_common_ip = ip_counts.most_common(1)
+#     return most_common_ip[0]
+
+
+# # Виклик функцій і виведення результатів
+# ip_counts = get_count_visits_from_ip(IP)
+# most_common_ip = get_frequent_visit_from_ip(IP)
+
+# print("Кількість входжень кожного IP-адреси:")
+# print(ip_counts)
+
+# print("\nНайбільш часто вживаний IP-адрес та кількість його появ в списку:")
+# print(most_common_ip)
+
+# from collections import deque
+
+# MAX_LEN = 10  # Задайте бажаний максимальний розмір LIFO
+
+
+# class LIFO:
+#     def __init__(self):
+#         self.lifo = deque(maxlen=MAX_LEN)
+
+#     def push(self, element):
+#         self.lifo.appendleft(element)
+
+#     def pop(self):
+#         if len(self.lifo) > 0:
+#             return self.lifo.popleft()
+#         else:
+#             return None  # Повертаємо None, якщо LIFO пустий
+
+
+# lifo = deque(maxlen=MAX_LEN)
+# def push(element):
+#     return lifo.appendleft(element)
+# def pop():
+#     if len(lifo) > 0:
+#         return lifo.popleft()
+#     else:
+#         return None
+# Створення екземпляру LIFO
+# lifo = LIFO()
+
+# # Додавання елементів до LIFO
+# lifo.push(1)
+# lifo.push(2)
+# lifo.push(3)
+
+# # Дістаємо та виводимо елементи з LIFO
+# print(lifo.pop())  # Виведе 3
+# print(lifo.pop())  # Виведе 2
+# print(lifo.pop())  # Виведе 1
+# print(lifo.pop())  # Виведе None, так як LIFO порожній
+
+from collections import deque
+
+
+class FIFO:
+    def __init__(self, max_len):
+        self.fifo = deque()
+        self.max_len = max_len
+
+    def push(self, element):
+        if len(self.fifo) < self.max_len:
+            self.fifo.append(element)
+        else:
+            print("FIFO is full. Cannot push element.")
+
+    def pop(self):
+        if len(self.fifo) > 0:
+            return self.fifo.popleft()
+        else:
+            print("FIFO is empty. Cannot pop element.")
+            return None
+
+
+# Визначте максимальну довжину черги
+MAX_LEN = 5
+
+
+def push(element):
+    if len(fifo) < MAX_LEN:
+        fifo.append(element)
+    else:
+        print("FIFO is full. Cannot push element.")
+
+
+def pop(self):
+    if len(fifo) > 0:
+        return fifo.popleft()
+    else:
+        print("FIFO is empty. Cannot pop element.")
+        return None
+
+
+# Створення FIFO
+fifo = FIFO(MAX_LEN)
+
+# Додавання елементів до черги
+fifo.push(1)
+fifo.push(2)
+fifo.push(3)
+fifo.push(4)
+fifo.push(5)
+
+# Спроба додати ще один елемент, коли черга вже повна
+fifo.push(6)
+
+# Витягнення та виведення елементів з черги
+print(fifo.pop())  # Виведе 1
+print(fifo.pop())  # Виведе 2
+print(fifo.pop())  # Виведе 3
+print(fifo.pop())  # Виведе 4
+print(fifo.pop())  # Виведе 5
+
+# Спроба витягнути елемент, коли черга вже пуста
+print(fifo.pop())  # Виведе "FIFO is empty. Cannot pop element."
