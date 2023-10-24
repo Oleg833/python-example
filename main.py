@@ -1896,66 +1896,240 @@ from random import randint
 # print(lifo.pop())  # Виведе 1
 # print(lifo.pop())  # Виведе None, так як LIFO порожній
 
-from collections import deque
+# from collections import deque
 
 
-class FIFO:
-    def __init__(self, max_len):
-        self.fifo = deque()
-        self.max_len = max_len
+# class FIFO:
+#     def __init__(self, max_len):
+#         self.fifo = deque()
+#         self.max_len = max_len
 
-    def push(self, element):
-        if len(self.fifo) < self.max_len:
-            self.fifo.append(element)
-        else:
-            print("FIFO is full. Cannot push element.")
+#     def push(self, element):
+#         if len(self.fifo) < self.max_len:
+#             self.fifo.append(element)
+#         else:
+#             print("FIFO is full. Cannot push element.")
 
-    def pop(self):
-        if len(self.fifo) > 0:
-            return self.fifo.popleft()
-        else:
-            print("FIFO is empty. Cannot pop element.")
-            return None
-
-
-# Визначте максимальну довжину черги
-MAX_LEN = 5
+#     def pop(self):
+#         if len(self.fifo) > 0:
+#             return self.fifo.popleft()
+#         else:
+#             print("FIFO is empty. Cannot pop element.")
+#             return None
 
 
-def push(element):
-    if len(fifo) < MAX_LEN:
-        fifo.append(element)
-    else:
-        print("FIFO is full. Cannot push element.")
+# # Визначте максимальну довжину черги
+# MAX_LEN = 5
 
 
-def pop(self):
-    if len(fifo) > 0:
-        return fifo.popleft()
-    else:
-        print("FIFO is empty. Cannot pop element.")
-        return None
+# def push(element):
+#     if len(fifo) < MAX_LEN:
+#         fifo.append(element)
+#     else:
+#         print("FIFO is full. Cannot push element.")
 
 
-# Створення FIFO
-fifo = FIFO(MAX_LEN)
+# def pop(self):
+#     if len(fifo) > 0:
+#         return fifo.popleft()
+#     else:
+#         print("FIFO is empty. Cannot pop element.")
+#         return None
 
-# Додавання елементів до черги
-fifo.push(1)
-fifo.push(2)
-fifo.push(3)
-fifo.push(4)
-fifo.push(5)
 
-# Спроба додати ще один елемент, коли черга вже повна
-fifo.push(6)
+# # Створення FIFO
+# fifo = FIFO(MAX_LEN)
 
-# Витягнення та виведення елементів з черги
-print(fifo.pop())  # Виведе 1
-print(fifo.pop())  # Виведе 2
-print(fifo.pop())  # Виведе 3
-print(fifo.pop())  # Виведе 4
-print(fifo.pop())  # Виведе 5
+# # Додавання елементів до черги
+# fifo.push(1)
+# fifo.push(2)
+# fifo.push(3)
+# fifo.push(4)
+# fifo.push(5)
 
-# Спроба витягнути елемент, коли черга вже пуста
-print(fifo.pop())  # Виведе "FIFO is empty. Cannot pop element."
+# # Спроба додати ще один елемент, коли черга вже повна
+# fifo.push(6)
+
+# # Витягнення та виведення елементів з черги
+# print(fifo.pop())  # Виведе 1
+# print(fifo.pop())  # Виведе 2
+# print(fifo.pop())  # Виведе 3
+# print(fifo.pop())  # Виведе 4
+# print(fifo.pop())  # Виведе 5
+
+# # Спроба витягнути елемент, коли черга вже пуста
+# print(fifo.pop())  # Виведе "FIFO is empty. Cannot pop element."
+
+# def get_student_grade(option):
+#     grades = {
+#         'F': 1,
+#         'FX': 2,
+#         'E': 3,
+#         'D': 3,
+#         'C': 4,
+#         'B': 5,
+#         'A': 5,
+#     }
+#     descriptions = {
+#         'F': 'Unsatisfactorily',
+#         'FX': 'Unsatisfactorily',
+#         'E': 'Enough',
+#         'D': 'Satisfactorily',
+#         'C': 'Good',
+#         'B': 'Very good',
+#         'A': 'Perfectly',
+#     }
+
+#     def get_grade(key):
+#         return grades.get(key, None)
+
+#     def get_description(key):
+#         return descriptions.get(key, None)
+
+#     if option == 'grade':
+#         return get_grade
+#     elif option == 'description':
+#         return get_description
+#     else:
+#         return None
+
+
+# # Приклад використання:
+# grade_function = get_student_grade('grade')
+# description_function = get_student_grade('description')
+
+# grade = grade_function('E')  # Поверне 3
+# description = description_function('E')  # Поверне 'Enough'
+# invalid_option = get_student_grade('invalid_option')  # Поверне None
+
+# DEFAULT_DISCOUNT = 0.1  # Глобальна змінна для знижки за відсутності discount у клієнта
+
+
+# def get_discount_price_customer(price, customer):
+
+#     discount = customer.get("discount", DEFAULT_DISCOUNT)
+
+#     discounted_price = price * (1 - discount)
+
+#     return discounted_price
+
+
+# # Приклад використання функції:
+# customer1 = {"name": "Dima"}
+# customer2 = {"name": "Boris", "discount": 0.15}
+# product_price = 100.0
+
+# discounted_price1 = get_discount_price_customer(product_price, customer1)
+# discounted_price2 = get_discount_price_customer(product_price, customer2)
+
+# print(f"Ціна для клієнта Dima: {discounted_price1}")
+# print(f"Ціна для клієнта Boris: {discounted_price2}")
+
+# def caching_fibonacci():
+#     cache = {}
+
+#     def fibonacci(n):
+#         if n in cache:
+#             return cache[n]
+
+#         if n <= 1:
+#             result = n
+#         else:
+#             result = fibonacci(n - 1) + fibonacci(n - 2)
+
+#         cache[n] = result
+#         print("cache: ", cache)
+#         return result
+
+#     return fibonacci
+
+
+# # Приклад використання:
+# fib = caching_fibonacci()
+# print(fib(-5))  # Виведе -5
+# # print(fib(10))  # Виведе 55
+
+# def discount_price(discount):
+#     def calculate_discounted_price(price):
+#         discounted_price = price - (price * discount)
+#         return discounted_price
+
+#     return calculate_discounted_price
+
+
+# # Приклад використання:
+# cost_15 = discount_price(0.15)
+# cost_10 = discount_price(0.10)
+# cost_05 = discount_price(0.05)
+
+# price = 100
+# print(cost_15(price))  # Виведе 85.0
+# print(cost_10(price))  # Виведе 90.0
+# print(cost_05(price))  # Виведе 95.0
+
+# def format_phone_number(sanitize_func):
+#     def wrapper(phone_number):
+#         normalized_number = sanitize_func(phone_number)
+
+#         if len(normalized_number) == 10:
+#             formatted_number = "+38" + normalized_number
+#         else:
+#             formatted_number = "+" + normalized_number
+
+#         return formatted_number
+
+#     return wrapper
+
+# # Оригінальна функція sanitize_phone_number
+
+
+# def sanitize_phone_number(phone):
+#     new_phone = (
+#         phone.strip()
+#         .removeprefix("+")
+#         .replace("(", "")
+#         .replace(")", "")
+#         .replace("-", "")
+#         .replace(" ", "")
+#     )
+#     return new_phone
+
+# # Приклад використання декоратора
+
+
+# @format_phone_number
+# def sanitized_and_formatted_phone_number(phone_number):
+#     return sanitize_phone_number(phone_number)
+
+
+# # Приклади використання
+# print(sanitized_and_formatted_phone_number("0501234567"))  # +380501234567
+# print(sanitized_and_formatted_phone_number("380501234567"))  # +380501234567
+# print(sanitized_and_formatted_phone_number("+380501234567"))  # +380501234567
+
+import re
+
+
+def generator_numbers(string=""):
+    # Використовуємо регулярний вираз для знаходження всіх цілих чисел у рядку
+    pattern = r'\d+'
+    matches = re.finditer(pattern, string)
+
+    # Ітеруємося по знайдених числах і видаємо їх
+    for match in matches:
+        yield int(match.group())
+
+
+def sum_profit(string):
+    total_profit = 0
+
+    # Використовуємо generator_numbers для отримання чисел з рядка
+    for number in generator_numbers(string):
+        total_profit += number
+
+    return total_profit
+
+
+string = "The resulting profit was: from the southern possessions $ 100, from the northern colonies $500, and the king gave $1000."
+result = sum_profit(string)
+print("Total profit:", result)
