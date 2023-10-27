@@ -231,29 +231,26 @@
 # catdog = CatDog()
 # print(catdog.say())  # Виведе "Meow"
 
-import copy
-import pickle
 
+# class Contacts:
+#     current_id = 1
 
-class Contacts:
-    current_id = 1
+#     def __init__(self):
+#         self.contacts = []
 
-    def __init__(self):
-        self.contacts = []
+#     def list_contacts(self):
+#         return self.contacts
 
-    def list_contacts(self):
-        return self.contacts
-
-    def add_contacts(self, name, phone, email, favorite):
-        contact = {
-            "id": self.current_id,
-            "name": name,
-            "phone": phone,
-            "email": email,
-            "favorite": favorite
-        }
-        self.contacts.append(contact)
-        self.current_id += 1
+#     def add_contacts(self, name, phone, email, favorite):
+#         contact = {
+#             "id": self.current_id,
+#             "name": name,
+#             "phone": phone,
+#             "email": email,
+#             "favorite": favorite
+#         }
+#         self.contacts.append(contact)
+#         self.current_id += 1
 
 # Приклад використання класу Contacts
 # contacts_manager = Contacts()
@@ -469,6 +466,8 @@ class Contacts:
 #     copy_obj.favorite = copy.copy(self.favorite)
 #     return copy_obj
 
+# import copy
+# import pickle
 
 # class Contacts:
 #     def __init__(self, filename: str, contacts: list[Person] = None):
