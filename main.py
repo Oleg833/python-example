@@ -180,6 +180,7 @@
 # data = [41, 3]
 # prepare_data(data)
 
+from functools import reduce
 from collections import defaultdict
 from datetime import datetime, timedelta
 import collections
@@ -2107,29 +2108,175 @@ from random import randint
 # print(sanitized_and_formatted_phone_number("380501234567"))  # +380501234567
 # print(sanitized_and_formatted_phone_number("+380501234567"))  # +380501234567
 
-import re
+# import re
+# def generator_numbers(string=""):
+#     # Використовуємо регулярний вираз для знаходження всіх цілих чисел у рядку
+#     pattern = r'\d+'
+#     matches = re.finditer(pattern, string)
+#     # Ітеруємося по знайдених числах і видаємо їх
+#     for match in matches:
+#         yield int(match.group())
+# def sum_profit(string):
+#     total_profit = 0
+#     # Використовуємо generator_numbers для отримання чисел з рядка
+#     for number in generator_numbers(string):
+#         total_profit += number
+#     return total_profit
+# string = "The resulting profit was: from the southern possessions $ 100, from the northern colonies $500, and the king gave $1000."
+# result = sum_profit(string)
+# print("Total profit:", result)
+
+# def generator_numbers(string=""):
+#     current_number = ""
+#     for char in string:
+#         if char.isdigit():
+#             current_number += char
+#         elif current_number:
+#             yield int(current_number)
+#             current_number = ""
+#     if current_number:
+#         yield int(current_number)
 
 
-def generator_numbers(string=""):
-    # Використовуємо регулярний вираз для знаходження всіх цілих чисел у рядку
-    pattern = r'\d+'
-    matches = re.finditer(pattern, string)
+# def sum_profit(string):
+#     total_profit = 0
 
-    # Ітеруємося по знайдених числах і видаємо їх
-    for match in matches:
-        yield int(match.group())
+#     # Використовуємо generator_numbers для отримання чисел з рядка
+#     for number in generator_numbers(string):
+#         total_profit += number
 
+#     return total_profit
 
-def sum_profit(string):
-    total_profit = 0
+numbers = [1, 2, 3, 4, 5]
 
-    # Використовуємо generator_numbers для отримання чисел з рядка
-    for number in generator_numbers(string):
-        total_profit += number
-
-    return total_profit
+# for i in map(lambda x: x ** 2, numbers):
+#     print(i)
+# for i in map(lambda x: x ** 2, numbers):
+#     print(i)
 
 
-string = "The resulting profit was: from the southern possessions $ 100, from the northern colonies $500, and the king gave $1000."
-result = sum_profit(string)
-print("Total profit:", result)
+# def normal_name(list_name):
+
+#     def capitalize_first_letter(word):
+#         return word.capitalize()
+
+#     capitalized_names = list(map(capitalize_first_letter, list_name))
+
+#     return capitalized_names
+
+
+# name = ["dan", "jane", "steve", "mike"]
+# result = normal_name(name)
+# print(result)
+
+# def get_emails(list_contacts):
+#     # Використовуємо функцію генератор map до i_го словника контакту
+#     emails = map(lambda contact: contact['email'], list_contacts)
+#     email_list = []
+#     for i in emails:
+#         email_list.append(i)
+#         print("email_list", email_list)
+
+#     # Перетворюємо результат map в список
+#     # email_list = list("547")
+
+#     return email_list
+
+
+# # Приклад використання:
+# contacts = [
+#     {
+#         "name": "Allen Raymond",
+#         "email": "nulla.ante@vestibul.co.uk",
+#         "phone": "(992) 914-3792",
+#         "favorite": False,
+#     },
+#     {
+#         "name": "John Smith",
+#         "email": "john.smith@example.com",
+#         "phone": "(123) 456-7890",
+#         "favorite": True,
+#     }
+# ]
+
+# email_list = get_emails(contacts)
+# print(email_list)
+
+# for i in filter(lambda x: (x + 1) % 2, range(1, 10 + 1)):
+#     print(i)
+# some_str = 'aaAbbB C F DDd EEe'
+# for i in filter(lambda x: x.isupper(), some_str):
+#     print(i)
+# upper_list = list(filter(lambda x: x.isupper(), some_str))
+# print("upper_list", upper_list)
+
+# payment = [100, -3, 400, 35, -100]
+# def positive_values(list_payment):
+#     pos_list = list(filter(lambda x: x > 0, list_payment))
+#     return pos_list
+# print("pos_list", positive_values(payment))
+
+
+# def get_favorites(contacts):
+#     favorites_list = list(
+#         filter(lambda contact: contact["favorite"], contacts))
+#     return favorites_list
+# contacts = [
+#     {
+#         "name": "Allen Raymond",
+#         "email": "nulla.ante@vestibul.co.uk",
+#         "phone": "(992) 914-3792",
+#         "favorite": True,
+#     }
+# ]
+# print("favorites", get_favorites(contacts))
+# def get_favorites(contacts):
+#     # Використовуємо функцію filter для відфільтрування обраних контактів
+#     favorite_contacts = filter(lambda contact: contact['favorite'], contacts)
+#     # Перетворюємо результат filter в список
+#     favorite_contacts_list = list(favorite_contacts)
+#     return favorite_contacts_list
+# Приклад використання:
+# contacts = [
+#     {
+#         "name": "Allen Raymond",
+#         "email": "nulla.ante@vestibul.co.uk",
+#         "phone": "(992) 914-3792",
+#         "favorite": False,
+#     },
+#     {
+#         "name": "John Smith",
+#         "email": "john.smith@example.com",
+#         "phone": "(123) 456-7890",
+#         "favorite": True,
+#     },
+#     {
+#         "name": "Jane Doe",
+#         "email": "jane.doe@example.com",
+#         "phone": "(987) 654-3210",
+#         "favorite": True,
+#     }
+# ]
+
+# favorite_contacts = get_favorites(contacts)
+# print(favorite_contacts)
+
+
+# def sum_numbers(numbers):
+#     result = reduce((lambda x, y: x + y), numbers, 0)
+#     return result
+
+
+# numbers = [3, 4, 6, 9, 34, 12]
+# print(sum_numbers(numbers))  # 10
+
+# payment = [100, -3, 400, 35, -100]
+
+
+# def amount_payment(payment):
+#     pos_list = list(filter(lambda x: x > 0, payment))
+#     result = reduce((lambda x, y: x + y), pos_list, 0)
+#     return result
+
+
+# print("pay=", amount_payment(payment))
