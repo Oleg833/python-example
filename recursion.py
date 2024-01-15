@@ -3,6 +3,11 @@ import shutil
 import argparse
 
 def copy_files(src_dir, dest_dir):
+    # Перевірка існування вихідної директорії
+    if not os.path.exists(src_dir):
+        print(f"Помилка: Вихідна директорія {src_dir} не існує.")
+        return
+    
     # Перевірка наявності директорії призначення, і в разі відсутності - створення
     if not os.path.exists(dest_dir):
         os.makedirs(dest_dir)
